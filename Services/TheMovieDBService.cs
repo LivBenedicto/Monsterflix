@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Monsterflix.Api.Configurations;
 using Monsterflix.Api.Models;
 using Monsterflix.Api.Services.Contracts;
 
@@ -18,7 +19,7 @@ namespace Monsterflix.Api.Services
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("https://api.themoviedb.org/3/");
-            _key = ApiKeys.ApiKeyTheMovieDb;
+            _key = AppSettingsProvider.Settings["ApiKeyTMDB"];
         }
 
         // Criando get generico para requisição
