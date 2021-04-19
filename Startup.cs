@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Monsterflix.Api.Repositories;
+using Monsterflix.Api.Repositories.Contracts;
+using Monsterflix.Api.Services;
+using Monsterflix.Api.Services.Contracts;
 
 namespace Monsterflix.Api
 {
@@ -19,6 +24,25 @@ namespace Monsterflix.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            #region Serviços adicionados
+            services.AddMvc();
+
+            services.AddResponseCompression();
+
+            // Monsterflix serviços e repositórios
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<ITheMovieDBService, TheMovieDBService>();
+
+            services.AddSwaggerGen(options =>
+			{
+				options.SwaggerDoc("v1", new OpenApiInfo { Title = "Monsterflix Api", Version = "v1" });
+			});
+
+			services.AddSwaggerGenNewtonsoftSupport();    
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,6 +54,20 @@ namespace Monsterflix.Api
             }
 
             app.UseHttpsRedirection();
+
+            // Adicionando documentação - Swagger
+            app.UseSwagger();
+			app.UseSwaggerUI(options =>
+			{
+				options.SwaggerEndpoint("swagger/v1/swagger.json", "Monsterflix API");
+
+				options.RoutePrefix = "swagger";
+
+				options.DocumentTitle = "Monsterflix API";
+
+				options.DisplayRequestDuration();
+				options.EnableFilter();
+			});
 
             app.UseRouting();
 
