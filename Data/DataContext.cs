@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Monsterflix.Api.Data.Configuration;
 using Monsterflix.Api.Models;
 
 namespace Monsterflix.Api.Data
@@ -10,5 +11,13 @@ namespace Monsterflix.Api.Data
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<ProfileMovie> ProfileMovies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.ApplyConfiguration(new ProfileConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieConfiguration());
+            modelBuilder.ApplyConfiguration(new ProfileMovieConfiguration());
+        }
     }
 }
