@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Monsterflix.Api.Configurations;
+using Monsterflix.Api.Data;
 using Monsterflix.Api.Repositories;
 using Monsterflix.Api.Repositories.Contracts;
 using Monsterflix.Api.Services;
@@ -33,6 +35,9 @@ namespace Monsterflix.Api
             services.AddMvc();
 
             services.AddResponseCompression();
+
+            // Banco de dados - Docker
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(AppSettingsProvider.Settings["connectionString"]));
 
             // Monsterflix serviços e repositórios
             services.AddScoped<IAccountRepository, AccountRepository>();
