@@ -10,5 +10,6 @@ namespace Monsterflix.Api.Models
 
         // Foreign key
         public int IdAccount { get; set; }
+        public Account Account { get; set; }
     }
 }
