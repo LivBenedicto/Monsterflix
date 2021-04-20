@@ -10,6 +10,7 @@ using Monsterflix.Api.Services.Contracts;
 
 namespace Monsterflix.Api.Controllers
 {
+    [Route("v1/movies")]
     public class MovieController
     {
         private readonly IMovieRepository _movieRepository;
@@ -22,19 +23,22 @@ namespace Monsterflix.Api.Controllers
         }
 
         // Pesquisar filme por palavra-chave no Serviço da The Movie DB
+        [HttpGet("{keyword}")]
         public async Task<int> GetSearchMovieByKeyword(string keyword)
         {
             return await _theMovieDBService.SearchMovie(keyword);
         }
 
         // Retornar lista de filmes por status
-        public async Task<IList<Movie>> GetSearchMovieById(int idProfile, EStatusMovie statusMovie)
+        [HttpGet("{idProfile}")]
+        public async Task<IList<Movie>> GetSearchMovieById(int idProfile, [FromBody] EStatusMovie statusMovie)
         {
             return await _movieRepository.GetListMoviesByStatus(idProfile, statusMovie);
         }
 
         // Alterar o status para "já assistido"
-        public async Task UpdateStatusMovie(int idProfile, int idMovie)
+        [HttpPut("{idProfile}")]
+        public async Task UpdateStatusMovie(int idProfile, [FromBody] int idMovie)
         {
             await _movieRepository.UpdateMovieStatus(idProfile, idMovie);
         }

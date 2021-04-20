@@ -15,9 +15,9 @@ namespace Monsterflix.Api.Services
         private readonly HttpClient _httpClient;
         private readonly string _key;
 
-        public TheMovieDBService(HttpClient httpClient)
+        public TheMovieDBService()
         {
-            _httpClient = httpClient;
+            _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("https://api.themoviedb.org/3/");
             _key = AppSettingsProvider.Settings["ApiKeyTMDB"];
         }
