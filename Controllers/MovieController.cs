@@ -23,15 +23,15 @@ namespace Monsterflix.Api.Controllers
         }
 
         // Pesquisar filme por palavra-chave no Serviço da The Movie DB
-        [HttpGet("{keyword}")]
-        public async Task<int> GetSearchMovieByKeyword(string keyword)
+        [HttpGet]
+        public async Task<int> GetSearchMovieByKeyword([FromQuery] string keyword)
         {
             return await _theMovieDBService.SearchMovie(keyword);
         }
 
         // Retornar lista de filmes por status
         [HttpGet("{idProfile}")]
-        public async Task<IList<Movie>> GetSearchMovieById(int idProfile, [FromBody] EStatusMovie statusMovie)
+        public async Task<IList<Movie>> GetSearchMovieById(int idProfile, [FromQuery] EStatusMovie statusMovie)
         {
             return await _movieRepository.GetListMoviesByStatus(idProfile, statusMovie);
         }

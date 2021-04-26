@@ -10,7 +10,7 @@ namespace Monsterflix.Api.Data.Configuration
         {
             builder.ToTable("ProfileMovies");
 
-            builder.HasNoKey();
+            builder.HasKey(profileMovie => profileMovie.IdProfileMovie);
 
             builder.Property(profileMovie => profileMovie.IdProfile).IsRequired();
 
@@ -18,9 +18,9 @@ namespace Monsterflix.Api.Data.Configuration
 
             builder.Property(profileMovie => profileMovie.StatusWatch).IsRequired();
 
-            builder.HasOne(profileMovie => profileMovie.Profile).WithMany();
+            builder.HasOne(profileMovie => profileMovie.Profile).WithMany(profile => profile.Movie).HasForeignKey(profileMovie => profileMovie.IdProfile);
             
-            builder.HasOne(profileMovie => profileMovie.Movie).WithMany();
+            builder.HasOne(profileMovie => profileMovie.Movie).WithMany().HasForeignKey(profileMovie => profileMovie.IdMovie);
         }
     }
 }

@@ -14,9 +14,7 @@ namespace Monsterflix.Api.Data.Configuration
 
             builder.Property(profile => profile.Username).HasMaxLength(20).IsRequired();
 
-            builder.HasMany(profile => profile.Movie).WithOne(profileMovie => profileMovie.Profile);
-
-            builder.HasOne(profile => profile.Account).WithMany().HasForeignKey(profile => profile.IdAccount);
+            builder.HasOne(profile => profile.Account).WithMany(account => account.Profile).HasForeignKey(profile => profile.IdAccount).HasPrincipalKey(account => account.IdAccount);
         }
     }
 }

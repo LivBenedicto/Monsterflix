@@ -4,6 +4,7 @@ namespace Monsterflix.Api.Models
 {
     public class ProfileMovie
     {
+        public int IdProfileMovie { get; set; }
         public int IdProfile { get; set; }
         public int IdMovie { get; set; }
         public EStatusMovie StatusWatch { get; set; }

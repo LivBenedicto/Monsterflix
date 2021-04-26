@@ -37,7 +37,7 @@ namespace Monsterflix.Api
             services.AddResponseCompression();
 
             // Banco de dados - Docker
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(AppSettingsProvider.Settings["connectionString"]));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(AppSettingsProvider.Settings["ConnectionStrings:connectionString"]));
 
             // Monsterflix serviços e repositórios
             services.AddScoped<IAccountRepository, AccountRepository>();
@@ -68,7 +68,7 @@ namespace Monsterflix.Api
             app.UseSwagger();
 			app.UseSwaggerUI(options =>
 			{
-				options.SwaggerEndpoint("swagger/v1/swagger.json", "Monsterflix API");
+				options.SwaggerEndpoint("/swagger/v1/swagger.json", "Monsterflix API");
 
 				options.RoutePrefix = "swagger";
 
