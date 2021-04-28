@@ -1,3 +1,5 @@
+// Configuração da tabela relacionamento entre Profile e Movie
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Monsterflix.Api.Models;

@@ -1,3 +1,4 @@
+// Tabela relacionamento entre Profile e Movie
 using Monsterflix.Api.Enum;
 
 namespace Monsterflix.Api.Models

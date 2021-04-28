@@ -11,7 +11,7 @@ namespace Monsterflix.Api.Models
         public string Username { get; set; }
         public string Birthday { get; set; }
 
-        // Foreign key
+        // Entidade relacionada
         public List<Profile> Profile { get; set; }
     }
 }
