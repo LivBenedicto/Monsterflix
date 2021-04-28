@@ -42,6 +42,7 @@ namespace Monsterflix.Api
             // Monsterflix serviços e repositórios
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IProfileMovieRepository, ProfileMovieRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<ITheMovieDBService, TheMovieDBService>();
 
