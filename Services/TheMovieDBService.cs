@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Monsterflix.Api.Configurations;
-using Monsterflix.Api.Models;
+using Monsterflix.Api.Models.Service;
 using Monsterflix.Api.Services.Contracts;
 
 namespace Monsterflix.Api.Services
@@ -42,11 +42,18 @@ namespace Monsterflix.Api.Services
             return result;
         }
 
-        // Requisição para pesquisar na plataforma 
-        public async Task<int> SearchMovie(string keyword)
+        // Requisição para pesquisar todos os filmes correspondentes a palavra-chave - lista
+        public async Task<MovieList> SearchMovie(string keyword)
         {
-            MovieService movieService = await _getServiceUrl<MovieService>($"search/movie?query={keyword}&include_adult=false");
-            return movieService.id;
+            MovieList movieList = await _getServiceUrl<MovieList>($"search/movie?query={keyword}&include_adult=false");
+            return movieList;
+        }
+
+        // Requisição para pesquisar detalhes do filme por ID TMDB - único
+        public async Task<MovieDetail> SearchMovieById(int idMovieService)
+        {
+            MovieDetail movieDetail = await _getServiceUrl<MovieDetail>($"movie/{idMovieService}");
+            return movieDetail;
         }
     }
 }
