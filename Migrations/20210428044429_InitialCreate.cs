@@ -30,7 +30,7 @@ namespace Monsterflix.Api.Migrations
                 {
                     IdMovie = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IdMovieService = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,6 +54,26 @@ namespace Monsterflix.Api.Migrations
                         column: x => x.IdAccount,
                         principalTable: "Accounts",
                         principalColumn: "IdAccount",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovieGenres",
+                columns: table => new
+                {
+                    IdMovieGenre = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdMovie = table.Column<int>(type: "int", nullable: false),
+                    IdGenreService = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieGenres", x => x.IdMovieGenre);
+                    table.ForeignKey(
+                        name: "FK_MovieGenres_Movies_IdMovie",
+                        column: x => x.IdMovie,
+                        principalTable: "Movies",
+                        principalColumn: "IdMovie",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -91,6 +111,11 @@ namespace Monsterflix.Api.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_MovieGenres_IdMovie",
+                table: "MovieGenres",
+                column: "IdMovie");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProfileMovies_IdMovie",
                 table: "ProfileMovies",
                 column: "IdMovie");
@@ -108,6 +133,9 @@ namespace Monsterflix.Api.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "MovieGenres");
+
             migrationBuilder.DropTable(
                 name: "ProfileMovies");
 

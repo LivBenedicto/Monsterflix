@@ -64,12 +64,32 @@ namespace Monsterflix.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Genre")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdMovieService")
+                        .HasColumnType("int");
 
                     b.HasKey("IdMovie");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Monsterflix.Api.Models.MovieGenre", b =>
+                {
+                    b.Property<int>("IdMovieGenre")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdGenreService")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMovie")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdMovieGenre");
+
+                    b.HasIndex("IdMovie");
+
+                    b.ToTable("MovieGenres");
                 });
 
             modelBuilder.Entity("Monsterflix.Api.Models.Profile", b =>
@@ -119,6 +139,17 @@ namespace Monsterflix.Api.Migrations
                     b.ToTable("ProfileMovies");
                 });
 
+            modelBuilder.Entity("Monsterflix.Api.Models.MovieGenre", b =>
+                {
+                    b.HasOne("Monsterflix.Api.Models.Movie", "Movie")
+                        .WithMany("Genre")
+                        .HasForeignKey("IdMovie")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("Monsterflix.Api.Models.Profile", b =>
                 {
                     b.HasOne("Monsterflix.Api.Models.Account", "Account")
@@ -152,6 +183,11 @@ namespace Monsterflix.Api.Migrations
             modelBuilder.Entity("Monsterflix.Api.Models.Account", b =>
                 {
                     b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Monsterflix.Api.Models.Movie", b =>
+                {
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("Monsterflix.Api.Models.Profile", b =>
