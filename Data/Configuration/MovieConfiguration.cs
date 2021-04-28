@@ -12,7 +12,7 @@ namespace Monsterflix.Api.Data.Configuration
 
             builder.HasKey(movie => movie.IdMovie);
 
-            builder.Property(movie => movie.Genre);
+            builder.Property(genre => genre.IdMovieService);
         }
     }
 }

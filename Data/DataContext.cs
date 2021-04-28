@@ -9,15 +9,17 @@ namespace Monsterflix.Api.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Profile> Profiles { get; set; }
-        public DbSet<Movie> Movies { get; set; }
         public DbSet<ProfileMovie> ProfileMovies { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieGenre> MovieGenres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccountConfiguration());
             modelBuilder.ApplyConfiguration(new ProfileConfiguration());
-            modelBuilder.ApplyConfiguration(new MovieConfiguration());
             modelBuilder.ApplyConfiguration(new ProfileMovieConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieGenreConfiguration());
         }
     }
 }
