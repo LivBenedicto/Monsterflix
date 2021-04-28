@@ -34,9 +34,6 @@ namespace Monsterflix.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("IdFacebook")
-                        .HasColumnType("int");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -48,8 +45,6 @@ namespace Monsterflix.Api.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("IdAccount");
-
-                    b.HasAlternateKey("IdFacebook");
 
                     b.HasIndex("Email")
                         .IsUnique();

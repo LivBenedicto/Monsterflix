@@ -12,7 +12,6 @@ namespace Monsterflix.Api.Migrations
                 {
                     IdAccount = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdFacebook = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -21,7 +20,6 @@ namespace Monsterflix.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.IdAccount);
-                    table.UniqueConstraint("AK_Accounts_IdFacebook", x => x.IdFacebook);
                 });
 
             migrationBuilder.CreateTable(

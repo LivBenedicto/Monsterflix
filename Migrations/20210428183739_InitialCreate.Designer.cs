@@ -9,7 +9,7 @@ using Monsterflix.Api.Data;
 namespace Monsterflix.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210428044429_InitialCreate")]
+    [Migration("20210428183739_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,9 +36,6 @@ namespace Monsterflix.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("IdFacebook")
-                        .HasColumnType("int");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -50,8 +47,6 @@ namespace Monsterflix.Api.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("IdAccount");
-
-                    b.HasAlternateKey("IdFacebook");
 
                     b.HasIndex("Email")
                         .IsUnique();

@@ -12,8 +12,6 @@ namespace Monsterflix.Api.Data.Configuration
 
             builder.HasKey(account => account.IdAccount);
 
-            builder.HasAlternateKey(account => account.IdFacebook);
-
             builder.Property(account => account.Email).IsRequired();
             builder.HasIndex(account => account.Email).IsUnique();
 
