@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Monsterflix.Api.Models;
+using Monsterflix.Api.Models.Request;
 using Monsterflix.Api.Repositories.Contracts;
 
 namespace Monsterflix.Api.Controllers
@@ -24,8 +25,14 @@ namespace Monsterflix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<Account> PostCreateNewAccount(Account account)
+        public async Task<Account> PostCreateNewAccount([FromBody] CreateAccountRequest createAccountRequest)
         {
+            Account account = new Account();
+            account.Email = createAccountRequest.Email;
+            account.Password = createAccountRequest.Password;
+            account.Username = createAccountRequest.Username;
+            account.Birthday = createAccountRequest.Birthday;
+
             return await _accountRepository.CreateNewAccount(account);
         }
     }
