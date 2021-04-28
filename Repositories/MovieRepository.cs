@@ -18,20 +18,21 @@ namespace Monsterflix.Api.Repositories
             _context = context;
         }
 
+        public async Task<Movie> SearchMovieDB(int idMovieService)
+        {
+            return await _context.Set<Movie>().Where(movie => movie.IdMovieService == idMovieService).FirstOrDefaultAsync();
+        }
+
+        public async Task<Movie> AddingNewMovieDB(Movie movie)
+        {
+            _context.Movies.Add(movie);
+            await _context.SaveChangesAsync();
+            return movie;
+        }
+
         public async Task<IList<Movie>> GetListMoviesByStatus(int idProfile, EStatusMovie statusMovie)
         {
             return await _context.ProfileMovies.Where(profileMovie => profileMovie.IdProfile == idProfile && profileMovie.StatusWatch == statusMovie).Select(profileMovie => profileMovie.Movie).ToListAsync();
-        }
-
-        public async Task<ProfileMovie> UpdateMovieStatus(int idProfile, int idMovie)
-        {
-            ProfileMovie profileMovie = await _context.ProfileMovies.Where(profileMovie => profileMovie.IdProfile == idProfile && profileMovie.IdMovie == idMovie).FirstOrDefaultAsync();
-            profileMovie.StatusWatch = EStatusMovie.Watched;
-            _context.ProfileMovies.Update(profileMovie);
-            
-            await _context.SaveChangesAsync();
-            
-            return profileMovie;
         }
     }
 }

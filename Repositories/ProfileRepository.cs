@@ -36,10 +36,10 @@ namespace Monsterflix.Api.Repositories
 
         public async Task<Profile> DeleteProfile(int idProfile)
         {
-            Profile profileToRemove = _context.Profiles.Where(profile => profile.IdProfile == idProfile).FirstOrDefault();
+            Profile profileToRemove = _context.Profiles.Find(idProfile);
             _context.Profiles.Remove(profileToRemove);
             await _context.SaveChangesAsync();
-            
+
             return profileToRemove;
         }
     }

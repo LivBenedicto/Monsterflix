@@ -7,7 +7,8 @@ namespace Monsterflix.Api.Repositories.Contracts
 {
     public interface IMovieRepository
     {
+        Task<Movie> SearchMovieDB(int idMovieService);
+        Task<Movie> AddingNewMovieDB(Movie movie);
         Task<IList<Movie>> GetListMoviesByStatus(int idProfile, EStatusMovie statusMovie);
-        Task<ProfileMovie> UpdateMovieStatus(int idProfile, int idMovie);
     }
 }
