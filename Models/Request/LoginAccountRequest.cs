@@ -1,3 +1,5 @@
+// Modelo para fazer login na conta
+
 namespace Monsterflix.Api.Models.Request
 {
     public class LoginAccountRequest

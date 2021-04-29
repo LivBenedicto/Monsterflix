@@ -1,3 +1,5 @@
+// Modelo para armazenar o token de autenticação pós login
+
 using System;
 
 namespace Monsterflix.Api.Models.Result

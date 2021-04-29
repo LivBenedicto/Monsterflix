@@ -1,3 +1,5 @@
+// Modelo para criar uma nova conta
+
 namespace Monsterflix.Api.Models.Request
 {
     public class CreateAccountRequest
