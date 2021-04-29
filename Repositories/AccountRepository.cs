@@ -27,5 +27,10 @@ namespace Monsterflix.Api.Repositories
         {
             return await _context.Accounts.Where(account => account.IdAccount == idAccount).FirstOrDefaultAsync();
         }
+
+        public async Task<Account> LoginAccount(string email, string password)
+        {
+            return await _context.Accounts.Where(account => account.Email == email && account.Password == password).FirstOrDefaultAsync();
+        }
     }
 }

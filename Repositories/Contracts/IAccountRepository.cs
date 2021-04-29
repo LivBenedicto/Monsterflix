@@ -7,5 +7,6 @@ namespace Monsterflix.Api.Repositories.Contracts
     {
         Task<Account> CreateNewAccount(Account account);
         Task<Account> GetAccountById(int idAccount);
+        Task<Account> LoginAccount(string email, string password);
     }
 }
