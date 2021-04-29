@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monsterflix.Api.Enum;
 using Monsterflix.Api.Models;
@@ -12,6 +13,7 @@ using Monsterflix.Api.Services.Contracts;
 namespace Monsterflix.Api.Controllers
 {
     [Route("v1/movies")]
+    [Authorize]
     public class MovieController
     {
         private readonly IMovieRepository _movieRepository;

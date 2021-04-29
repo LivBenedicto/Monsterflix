@@ -1,7 +1,9 @@
 // Classe que controla acesso perfil
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monsterflix.Api.Enum;
 using Monsterflix.Api.Models;
@@ -13,6 +15,7 @@ using Monsterflix.Api.Services.Contracts;
 namespace Monsterflix.Api.Controllers
 {
     [Route("v1/profiles")]
+    [Authorize]
     public class ProfileController : ControllerBase
     {
         private readonly IProfileRepository _profileRepository;
@@ -28,11 +31,11 @@ namespace Monsterflix.Api.Controllers
             _theMovieDBService = theMovieDBService;
         }
 
-        [HttpPost("{idAccount}")]
-        public async Task<Profile> PostCreateNewProfile(int idAccount, [FromBody] CreateProfileRequest createProfileRequest)
+        [HttpPost]
+        public async Task<Profile> PostCreateNewProfile([FromBody] CreateProfileRequest createProfileRequest)
         {
             Profile profile = new Profile();
-            profile.IdAccount = idAccount;
+            profile.IdAccount = int.Parse(User.Claims.FirstOrDefault(claim => claim.Type == "IdAccount").Value);
             profile.Username = createProfileRequest.Username;
 
             return await _profileRepository.CreateNewProfile(profile);
@@ -44,8 +47,8 @@ namespace Monsterflix.Api.Controllers
             return await _profileRepository.GetProfileById(idProfile);
         }
 
-        [HttpGet("{idAccount}/profiles")]
-        public async Task<IList<Profile>> GetListProfiles(int idAccount)
+        [HttpGet]
+        public async Task<IList<Profile>> GetListProfiles()
         {
             return await _profileRepository.GetListProfiles();
         }
